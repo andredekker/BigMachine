@@ -1,0 +1,26 @@
+**Statement**
+For <users>
+who <do something>
+the <solution>
+is a <something - the "how">
+that <provides the value>
+unlike <current, non-existing solution>
+our solution <does something better - the "why">
+
+
+**Scope**
+Success criteria  
+- <criteria 1>  
+- <criteria 2>  
+
+In scope  
+- <in scope 1>  
+- <in scope 2>  
+
+Out of scope   
+- <out of scope 1>  
+- <out of scope 2>  
+
+Non-functional Requirements  
+- <NFR 1>  
+- <NFR 2>  
