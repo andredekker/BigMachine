@@ -1,0 +1,34 @@
+@prefix map: <#> .
+@prefix db: <> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+
+@prefix roo: <http://www.cancerdata.org/roo/> .
+@prefix ncit:<http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#> .
+ 
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "org.postgresql.Driver";
+	d2rq:jdbcDSN "jdbc:postgresql://localhost/BigMachineMilestone1";
+	d2rq:username "postgres";
+	d2rq:password "postgres";
+	.
+
+# create MRN resource
+	map:MRN a d2rq:ClassMap;
+		d2rq:dataStorage map:database;
+		d2rq:uriPattern "http://www.uhn.ca/data/mycohort/@@MRN.MRN@@";
+		d2rq:class ncit:C81262; #medical record number
+		.
+
+# link value to MRN
+	map:MRN_value a d2rq:PropertyBridge;
+		d2rq:belongsToClassMap map:MRN;
+		d2rq:property roo:100042; #has_value
+		d2rq:sqlExpression "MRN.MRN";
+		d2rq:datatype xsd:string;
+		.
