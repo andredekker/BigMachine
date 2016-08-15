@@ -9,13 +9,16 @@ DROP TABLE "MRN";
 
 CREATE TABLE "MRN"
 (
-  "MRN" character(7)
+  "Token" uuid DEFAULT uuid_generate_v4() NOT NULL,
+  "MRN" character(7),
+  CONSTRAINT "Token2_PK" PRIMARY KEY ("Token"),
+  CONSTRAINT "MRN2_Unique" UNIQUE ("MRN")
   
 )
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE "MRN"
+ALTER TABLE "MRN2Token"
   OWNER TO postgres;
 
 -- Insert MRNs, Tokens are created as UUID

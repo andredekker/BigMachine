@@ -1,3 +1,15 @@
+# this is a mapping file to map a database of tokens to RDF
+# it is to be used in D2RQ typically with a command such as
+# dump-rdf -o MRN2Token.nt generate_mapping_MRN2Token.ttl
+# alternatively one can start up a server to query the database with SPARQL with
+# d2r-server generate_mapping_MRN2Token.ttl
+# tested dump with 100.000 tokens, this give 400k triples in about 3 min on a Surface
+# uploading those to blazegraph takes around 12 seconds
+# 10M tokens took about 10 hrs on a Surface (6.7GB)
+# uploading those to blazegraph takes around 60 minutes
+# a query for a single token given an MRN takes about 300ms in blazegraph
+# Andre Dekker, 10-08-2016
+
 @prefix map: <#> .
 @prefix db: <> .
 @prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
@@ -16,19 +28,21 @@ map:database a d2rq:Database;
 	d2rq:jdbcDSN "jdbc:postgresql://localhost/BigMachineMilestone1";
 	d2rq:username "postgres";
 	d2rq:password "postgres";
+
 	.
 
 # create patient resource
 	map:patient a d2rq:ClassMap;
 		d2rq:dataStorage map:database;
-		d2rq:uriPattern "http://www.uhn.ca/data/@@MRN2Token_1000.Token@@";
+		d2rq:uriPattern "http://www.uhn.ca/data/@@MRN2Token.Token@@";
 		d2rq:class ncit:C16960; #patient
+		d2rq:resultSizeLimit 100; # limit it to X patients
 		.
 
 # create MRN resource 
 	map:MRN a d2rq:ClassMap;
 		d2rq:dataStorage map:database;
-		d2rq:uriPattern "http://www.uhn.ca/data/@@MRN2Token_1000.Token@@-MRN";
+		d2rq:uriPattern "http://www.uhn.ca/data/@@MRN2Token.Token@@/MRN";
 		d2rq:class ncit:C81262; #medical record number
 		.
 	#link patient to MRN
@@ -41,6 +55,6 @@ map:database a d2rq:Database;
 	map:MRN_value a d2rq:PropertyBridge;
 		d2rq:belongsToClassMap map:MRN;
 		d2rq:property roo:100042; #has_value
-		d2rq:sqlExpression "MRN2Token_1000.MRN";
+		d2rq:sqlExpression "MRN2Token.MRN";
 		d2rq:datatype xsd:string;
 		.

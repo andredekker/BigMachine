@@ -1,3 +1,7 @@
+# this is a mapping file to map a database of MRNs to RDF
+# it is to be used in D2RQ typically with a command such as
+# dump-rdf -o MRN.nt generate_mapping_MRN.ttl
+# Andre Dekker, 10-08-2016
 @prefix map: <#> .
 @prefix db: <> .
 @prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
@@ -16,6 +20,7 @@ map:database a d2rq:Database;
 	d2rq:jdbcDSN "jdbc:postgresql://localhost/BigMachineMilestone1";
 	d2rq:username "postgres";
 	d2rq:password "postgres";
+	d2rq:resultSizeLimit 1000; # limit it to X patients
 	.
 
 # create MRN resource

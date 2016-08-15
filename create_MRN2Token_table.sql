@@ -25,7 +25,7 @@ ALTER TABLE "MRN2Token"
 
 -- Insert MRNs, Tokens are created as UUID
 INSERT INTO "MRN2Token"("MRN")
-    SELECT (to_char(generate_series(0, 99999999),'FM0000000'));
+    SELECT (to_char(generate_series(0, 99999),'FM0000000')); --on a surface 100.000 tokens (10^5) take approximately 3 min so 10^7 around 5 hrs
 
 -- Check
 SELECT * FROM "MRN2Token" LIMIT 10
